@@ -1,4 +1,4 @@
-body,
+/* body,
 h1,
 h2,
 h3,
@@ -13,4 +13,161 @@ p {
 a {
   color: inherit;
   text-decoration: none;
+} */
+
+/*MAIN NAV*/
+body {
+  margin: 0px;
+  padding: 0px;
 }
+
+#main-container {
+  margin: 0px;
+  padding: 0px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid#bbb;
+  max-height: 80px;
+}
+
+.nav-header {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.nav-header > h1 {
+  margin: 0px;
+}
+
+.nav-header > h6 {
+  margin: 0px;
+  font-size: 14px;
+  font-weight: normal;
+  color: #999;
+}
+
+#notes-vision {
+  align-self: flex-start;
+  margin-left: 0;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  font-size: 30px;
+  padding: 20px 30px;
+}
+
+#note-container{
+  display: flex;
+}
+
+#left-side {
+  width: 14%;
+}
+
+#right-side {
+  flex:1;
+}
+
+h6 {
+  margin: 0px;
+}
+
+/*SIDEBAR*/
+.sidebar {
+  width: 100%;
+  height: 100vh;
+  border-right: 1px solid #ddd;
+}
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+.sidebar-header h1 {
+  margin: 0;
+}
+.sidebar-header button {
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  font-size: 20px;
+}
+.sidebar-header button:hover{
+  background-color: #bbb;
+}
+/* .sidebar-notes {
+  height: calc(100vh - 78px);
+  overflow-y: scroll;
+} */
+.sidebar-note {
+  padding: 20px;
+  cursor: pointer;
+}
+.sidebar-note-title {
+  display: flex;
+  justify-content: space-between;
+}
+.sidebar-note p {
+  margin: 10px 0;
+}
+.sidebar-note small {
+  display: block;
+  color: grey;
+}
+.sidebar-note:hover {
+  background: lightgrey;
+}
+
+/*TextEditor Part*/
+#right-side {
+  display: flex;
+  flex-direction: column;
+}
+
+#titleName{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+}
+#titleName div{
+  display: flex;
+  flex-direction: column;
+  margin-right: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  padding: 8px;
+}
+#titleName input {
+  margin-bottom: 5px;
+}
+#titleName button {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  font-size: 20px;
+  padding: 0px;
+}
+#edit-save-text:hover, #delete-text:hover {
+  background-color: #bbb;
+}
+#delete-text{
+  margin-right: 12px;
+}
+#bodyText textarea {
+  border: 1px solid #ddd;
+  width: 100%;
+  height: 100%;
+  resize: none;
+}
+
