@@ -2,7 +2,7 @@
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-function TextEditor( { currNote, onDeleteNote, onUpdateNote } ) {
+function TextEditor( { currNote, onDeleteNote, onUpdateNote, hideRightSide } ) {
     
     const handleChange = (value) => {
         onUpdateNote({
@@ -24,7 +24,7 @@ function TextEditor( { currNote, onDeleteNote, onUpdateNote } ) {
     if(!currNote) return <div className="no-active-note">Select a note, or create a new one</div>;
 
     return (
-        <section id="right-side">
+        <section id="right-side" className={hideRightSide ? "other-div full-page" : "other-div"}>
             <div id="titleName">
                 <div>
                     {/** the value and on change part is new on both this and the textarea */}

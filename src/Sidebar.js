@@ -1,23 +1,7 @@
 
-function Sidebar( { notes, onNewNote, currNote, setCurrNote } ) {
-
-
-    // if(!currNote) { return (
-    //     <div className="sidebar">
-    //         <div className="sidebar-header">
-    //             <h1>Notes</h1>
-    //             <button onClick={onNewNote}>+</button>
-    //         </div>
-
-    //         <div className="sidebar-notes">
-    //             No Note Yet
-    //         </div>
-    //     </div>
-    // );
-    // }
-
+function Sidebar( { notes, onNewNote, currNote, setCurrNote, hideRightSide } ) {
     return (
-        <div className="sidebar">
+        <div className={hideRightSide ? "sidebar hidden" : "sidebar"}>
             <div className="sidebar-header">
                 <h1>Notes</h1>
                 <button onClick={onNewNote}>+</button>
