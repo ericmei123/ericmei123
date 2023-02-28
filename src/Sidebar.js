@@ -1,13 +1,29 @@
 
 function Sidebar( { notes, onNewNote, currNote, setCurrNote } ) {
 
-    return (
 
+    // if(!currNote) { return (
+    //     <div className="sidebar">
+    //         <div className="sidebar-header">
+    //             <h1>Notes</h1>
+    //             <button onClick={onNewNote}>+</button>
+    //         </div>
+
+    //         <div className="sidebar-notes">
+    //             No Note Yet
+    //         </div>
+    //     </div>
+    // );
+    // }
+
+    return (
         <div className="sidebar">
             <div className="sidebar-header">
                 <h1>Notes</h1>
                 <button onClick={onNewNote}>+</button>
             </div>
+            
+            <div>{!currNote && <p className="no-curr-note">No Note Yet</p>}</div>
 
             <div className="sidebar-notes">
                 {notes.map((note) => (

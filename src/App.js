@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import uuid from "react-uuid";
 import Sidebar from "./Sidebar";
 import TextEditor from "./TextEditor";
@@ -7,7 +7,7 @@ import TextEditor from "./TextEditor";
 
 function App() {
 
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState(JSON.parse(localStorage.notes) || []);
   const[currNote, setCurrNote] = useState(false);
 
   const onNewNote = () => {
@@ -23,12 +23,31 @@ function App() {
   };
 
   const onDeleteNote = (idToDel) => {
-    setNotes(notes.filter((note) => note.id !== idToDel ));
+    const answer  = window.confirm("Are you sure?");
+    if (answer) {
+      setNotes(notes.filter((note) => note.id !== idToDel ));
+    }
   }
 
   const getCurrNote = () => {
     return notes.find((note) => note.id === currNote);
   }
+
+  //need to change so update occurs on button press instead of auto
+  const onUpdateNote = (updatedNote) => {
+    const updatedNotesArr = notes.map((note)=>{
+      if(note.id === currNote) { 
+        return updatedNote;
+      }
+
+      return note;
+    });
+    setNotes(updatedNotesArr);
+  };
+
+  useEffect(() => {
+    localStorage.setItem("notes", JSON.stringify(notes));
+  },[notes]);
 
   return (
   <div id="main-container">
@@ -39,14 +58,14 @@ function App() {
         <h6>Like Notion, but worse</h6>
       </div>
     </nav>
-  
-    {/*change this to a button so it activates the sidebar area*/}
+    
+      {/*change this to a button so it activates the sidebar area*/}
     <div id="note-container"> 
       <section id="left-side">
         <Sidebar notes={notes} onNewNote={onNewNote} currNote={currNote} setCurrNote={setCurrNote} />
       </section>
       <section id="right-side">
-        <TextEditor currNote={getCurrNote()} onDeleteNote={onDeleteNote} />
+        <TextEditor currNote={getCurrNote()} onDeleteNote={onDeleteNote} onUpdateNote={onUpdateNote} />
       </section>
     </div>
 
