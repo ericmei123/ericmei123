@@ -1,12 +1,12 @@
 
 
 import ReactQuill from 'react-quill';
-import { useOutletContext } from 'react-router-dom';
 import 'react-quill/dist/quill.snow.css';
+import { useOutletContext } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 
-function TextEditor( ) {
 
+function SavedText( ) {
     const [getCurrNote , onDeleteNote, onUpdateNote, hideRightSide, notes, setCurrID, currID] = useOutletContext();
     const currNote = getCurrNote();
 
@@ -26,18 +26,20 @@ function TextEditor( ) {
         }
     }
 
-    const handleChange = (value) => {
-        onUpdateNote({
-          ...currNote,
-          body: value,
-        });
+    const options = {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
     };
-
-    const onSaveChange = (key, value) => {
-        onUpdateNote({
-            ...currNote,
-            [key]: value,
-        });
+    
+    const formatDate = (when) => {
+        const formatted = new Date(when).toLocaleString("en-US", options);
+        if (formatted === "Invalid Date") {
+            return "";
+        }
+        return formatted;
     };
 
     const editSaveButton = document.getElementById('edit-save-text');
@@ -46,9 +48,9 @@ function TextEditor( ) {
         editSaveButton.addEventListener('click', () => {
             if (isEditing) {
             editSaveButton.innerText = 'Save';
+            navigate(`/notes/${currID}/edit`);
             } else {
             editSaveButton.innerText = 'Edit';
-            navigate(`/notes/${currID}/`);
             }
             isEditing = !isEditing;
         });
@@ -60,21 +62,21 @@ function TextEditor( ) {
         <>
             <section id="right-side" className={hideRightSide ? "other-div full-page" : "other-div"}>
                 <div id="titleName">
-                    <div id='titleText'>
-                        <input type="text" id="noteName" value={currNote.title} onChange={(event) => onSaveChange("title", event.target.value)} autoFocus />
-                        <input type="datetime-local" id="datetime-input" value={currNote.date} onChange={(event) => onSaveChange("date", event.target.value)} />
+                    <div>
+                        <h1 id='noteName-read-only'>{currNote.title}</h1>
+                        <h6 id='datetime-input-read-only'>{formatDate(currNote.date)}</h6>
                     </div>
-                        
-                    <button id="edit-save-text">&emsp;Save&emsp;</button>
+
+                    <button id="edit-save-text">&emsp;Edit&emsp;</button>
                     <button id="delete-text" onClick={() => onDeleteNote(currNote.id)}>&emsp;Delete&emsp;</button>
                 </div>
 
                 <div id="bodyText">
-                    <ReactQuill id='body' readOnly={false} value={currNote.body} onChange={handleChange} placeholder="Write your note here..." onBlur={() => onSaveChange("body", currNote.body)} />
+                    <ReactQuill id='body-read-only' readOnly={true} value={currNote.body} modules={{ toolbar: false }}/>
                 </div>
             </section>
         </> 
     );
 };
-
-export default TextEditor;
+  
+export default SavedText;

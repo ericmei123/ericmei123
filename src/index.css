@@ -1,21 +1,4 @@
-/* body,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-li,
-p {
-  margin: 0;
-  padding: 0;
-}
-a {
-  color: inherit;
-  text-decoration: none;
-} */
 
-/*MAIN NAV*/
 body {
   margin: 0px;
   padding: 0px;
@@ -77,7 +60,7 @@ h6 {
   margin: 0px;
 }
 
-/*SIDEBAR*/
+
 .sidebar {
   width: 100%;
   height: 100vh;
@@ -97,14 +80,13 @@ h6 {
   cursor: pointer;
   border: none;
   font-size: 20px;
+  margin: -10px;
+  padding-right: 20px;
+  padding-left: 20px;
 }
 .sidebar-header button:hover{
   background-color: #bbb;
 }
-/* .sidebar-notes {
-  height: calc(100vh - 78px);
-  overflow-y: scroll;
-} */
 .sidebar-note {
   padding: 20px;
   cursor: pointer;
@@ -123,8 +105,11 @@ h6 {
 .sidebar-note:hover {
   background: lightgrey;
 }
+.sidebar-note.active {
+  background-color: lightgray;
+}
 
-/*TextEditor Part*/
+
 #right-side {
   display: flex;
   flex-direction: column;
@@ -136,6 +121,9 @@ h6 {
   align-items: center;
   border-bottom: 1px solid #ddd;
 }
+#titleText {
+  flex-grow: 1;
+}
 #titleName div{
   display: flex;
   flex-direction: column;
@@ -145,10 +133,25 @@ h6 {
   margin-left: 5px;
   padding: 8px;
 }
-#titleName input {
+#noteName {
   margin-bottom: 5px;
+  border: none;
+  font-size: 20px;
+  box-shadow: none;
+}
+#datetime-input {
+  width: 20%;
+  border: none;
+  box-shadow: none;
+}
+#delete-text{
+  margin-right: 12px;
+}
+#edit-save-text{
+  margin: -10px;
 }
 #titleName button {
+  height: 100%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -161,26 +164,15 @@ h6 {
 #edit-save-text:hover, #delete-text:hover {
   background-color: #bbb;
 }
-#delete-text{
-  margin-right: 12px;
-}
 #bodyText {
   flex:1;
 }
-/*CAN DELETE TEXTAREA AND KEEP #BODY IF THE REACT QUILL WORKS OUT*/
-/* #bodyText textarea {
-  border: 1px solid #ddd;
-  width: 100%;
-  height: 100%;
-  resize: none;
-} */
 #body {
   width: 100%;
   height: 100%;
   resize: none;
 }
 
-/*MISC*/
 .no-curr-note{
   text-align: center;
   font-size: 18px;
@@ -188,26 +180,42 @@ h6 {
   color: #999;
 }
 .no-active-note {
-  margin-right: auto;
-  margin-left: auto;
-  margin-top: auto;
-  margin-bottom: auto;
+  margin: auto;
   font-size: 35px;
   font-weight: bold;
   color: #999;
+  height: 100vh;
+  display:flex;
+  justify-content: center;
+  align-items: center;
 }
 .hidden {
   display: none;
 }
 .hidden #right-side {
-  width: 100%; /* make the div take up the full width of the page */
-  height: 100vh; /* set the height to the full viewport height */
-  position: absolute; /* position the div absolutely */
-  top: 0; /* position the div at the top of the page */
-  left: 0; /* position the div at the left of the page */
+  width: 100%;
+  height: 100vh; 
+  position: absolute; 
+  top: 0; 
+  left: 0; 
 }
 .full-page {
   width: 100%;
   position: absolute;
   left: 0;
+}
+
+
+#noteName-read-only {
+  font-size: 30px;
+  margin: 0px;
+}
+#datetime-input-read-only {
+  margin-top: 2px;
+  color: gray;
+  font-weight: none;
+  font-size: 12px;
+}
+#body-read-only{
+  height: 100vh; 
 }
