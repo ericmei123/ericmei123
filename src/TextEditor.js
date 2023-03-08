@@ -12,19 +12,6 @@ function TextEditor( ) {
 
     const navigate = useNavigate();
 
-    let searchId;
-    if (!currNote) {
-        searchId="none";
-    } else {
-        searchId=currNote.id;
-        for (let i = 0; i < notes.length; i++) {
-            const key = notes[i].id;
-            if (key === searchId){
-                setCurrID(i.toString());
-                break;
-            }
-        }
-    }
 
     const handleChange = (value) => {
         onUpdateNote({
@@ -40,20 +27,6 @@ function TextEditor( ) {
         });
     };
 
-    const editSaveButton = document.getElementById('edit-save-text');
-    let isEditing = false;
-    if (editSaveButton){
-        editSaveButton.addEventListener('click', () => {
-            if (isEditing) {
-            editSaveButton.innerText = 'Save';
-            } else {
-            editSaveButton.innerText = 'Edit';
-            navigate(`/notes/${currID}/`);
-            }
-            isEditing = !isEditing;
-        });
-    }
-
     if(!currNote) return <div className="no-active-note">Select a note, or create a new one</div>;
 
     return (
@@ -65,7 +38,7 @@ function TextEditor( ) {
                         <input type="datetime-local" id="datetime-input" value={currNote.date} onChange={(event) => onSaveChange("date", event.target.value)} />
                     </div>
                         
-                    <button id="edit-save-text">&emsp;Save&emsp;</button>
+                    <button id="edit-save-text" onClick={() => navigate(`/notes/${currID}`)}>&emsp;Save&emsp;</button>
                     <button id="delete-text" onClick={() => onDeleteNote(currNote.id)}>&emsp;Delete&emsp;</button>
                 </div>
 

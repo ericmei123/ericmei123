@@ -1,6 +1,5 @@
 
-
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import TextEditor from './TextEditor';
 import Layout from './Layout';
 import SavedText from './SavedText';
@@ -12,10 +11,11 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Layout currID={currID} setCurrID={setCurrID} />}>
+        <Route element={<Layout currID={currID} setCurrID={setCurrID} />}>
+          <Route path='/' element={<Navigate to='/notes' />}/>
           <Route path="/notes" element={<TextEditor  />} />
-          <Route path="/notes/:noteNum/edit" element={<TextEditor />} />
-          <Route path="/notes/:noteNum" element={<SavedText  />} />
+          <Route path="/notes/:noteNum/" element={<SavedText />} />
+          <Route path="/notes/:noteNum/edit/" element={<TextEditor  />} />
         </Route>
       </Routes>
     </BrowserRouter>

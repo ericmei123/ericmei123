@@ -12,19 +12,6 @@ function SavedText( ) {
 
     const navigate = useNavigate();
 
-    let searchId;
-    if (!currNote) {
-        searchId="none";
-    } else {
-        searchId=currNote.id;
-        for (let i = 0; i < notes.length; i++) {
-            const key = notes[i].id;
-            if (key === searchId){
-                setCurrID(i.toString());
-                break;
-            }
-        }
-    }
 
     const options = {
         year: "numeric",
@@ -42,20 +29,6 @@ function SavedText( ) {
         return formatted;
     };
 
-    const editSaveButton = document.getElementById('edit-save-text');
-    let isEditing = false;
-    if (editSaveButton){
-        editSaveButton.addEventListener('click', () => {
-            if (isEditing) {
-            editSaveButton.innerText = 'Save';
-            navigate(`/notes/${currID}/edit`);
-            } else {
-            editSaveButton.innerText = 'Edit';
-            }
-            isEditing = !isEditing;
-        });
-    }
-
     if(!currNote) return <div className="no-active-note">Select a note, or create a new one</div>;
 
     return (
@@ -67,7 +40,7 @@ function SavedText( ) {
                         <h6 id='datetime-input-read-only'>{formatDate(currNote.date)}</h6>
                     </div>
 
-                    <button id="edit-save-text">&emsp;Edit&emsp;</button>
+                    <button id="edit-save-text" onClick={() => navigate(`/notes/${currID}/edit`)}>&emsp;Edit&emsp;</button>
                     <button id="delete-text" onClick={() => onDeleteNote(currNote.id)}>&emsp;Delete&emsp;</button>
                 </div>
 

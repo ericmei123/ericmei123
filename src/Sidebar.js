@@ -1,6 +1,7 @@
+import { Link } from "react-router-dom";
 
 
-function Sidebar( { notes, onNewNote, currNote, setCurrNote, hideRightSide } ) {
+function Sidebar( { notes, onNewNote, currNote, setCurrNote, hideRightSide, setCurrID ,currID } ) {
 
     const options = {
         year: "numeric",
@@ -27,9 +28,8 @@ function Sidebar( { notes, onNewNote, currNote, setCurrNote, hideRightSide } ) {
             
             <div>{notes.length === 0 && <p className="no-curr-note">No Note Yet</p>}</div>
 
-            <div className="sidebar-notes">
+            {/* <div className="sidebar-notes">
                 {notes.map((note) => (
-                    // <div className="sidebar-note" onClick={() => setCurrNote(note.id)}>
                     <div className={`sidebar-note ${note.id === currNote ? "active" : ""}`} onClick={() => setCurrNote(note.id)}>
                         <div className="sidebar-note-title">
                             <strong>{note.title && note.title.substr(0,20) + "..."}</strong>
@@ -38,7 +38,51 @@ function Sidebar( { notes, onNewNote, currNote, setCurrNote, hideRightSide } ) {
                         <p dangerouslySetInnerHTML={{ __html: note.body.substr(0,20) + "..." }} />
                     </div>
                 ))}
+            </div> */}
+
+            <div className="sidebar-notes">
+                {notes.map((note) => (
+                    <Link to={`/notes/${currID}/`} style={{textDecoration: 'none', color:'black'} }>
+                        <div className={`sidebar-note ${note.id === currNote ? "active" : ""}`} onClick={() => setCurrNote(note.id)}>
+                            <div className="sidebar-note-title">
+                                <strong>{note.title && note.title.substr(0,20) + "..."}</strong>
+                            </div>
+                            <small className="note-date">{formatDate(note.date)}</small>
+                            <p dangerouslySetInnerHTML={{ __html: note.body.substr(0,20) + "..." }} />
+                        </div>
+                    </Link>
+                ))}
             </div>
+
+            
+
+{/* 
+            <div className="sidebar-notes">
+                {notes.map((note) => (
+                    <>
+                        {currID ? (
+                            <Link to={`/notes/${currID}/`} style={{textDecoration: 'none', color:'black'} }>
+                                <div className={`sidebar-note ${note.id === currNote ? "active" : ""}`} onClick={() => setCurrNote(note.id)}>
+                                    <div className="sidebar-note-title">
+                                        <strong>{note.title && note.title.substr(0,20) + "..."}</strong>
+                                    </div>
+                                    <small className="note-date">{formatDate(note.date)}</small>
+                                    <p dangerouslySetInnerHTML={{ __html: note.body.substr(0,20) + "..." }} />
+                                </div>
+                            </Link>
+                        ) : (
+                            <div className={`sidebar-note ${note.id === currNote ? "active" : ""}`} onClick={() => setCurrNote(note.id)}>
+                                <div className="sidebar-note-title">
+                                    <strong>{note.title && note.title.substr(0,20) + "..."}</strong>
+                                </div>
+                                <small className="note-date">{formatDate(note.date)}</small>
+                                <p dangerouslySetInnerHTML={{ __html: note.body.substr(0,20) + "..." }} />
+                            </div>
+                        )}
+                    </>
+                ))}
+            </div> */}
+
         </div>
     );
 };

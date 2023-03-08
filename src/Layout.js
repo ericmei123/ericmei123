@@ -1,7 +1,7 @@
 
 
 import { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 
 import uuid from "react-uuid";
 import Sidebar from "./Sidebar";
@@ -9,7 +9,7 @@ import Sidebar from "./Sidebar";
 
 function Layout( { currID, setCurrID } ) {
 
-    const [notes, setNotes] = useState(JSON.parse(localStorage.notes) || []);
+    const[notes, setNotes] = useState(JSON.parse(localStorage.notes) || []);
     const[currNote, setCurrNote] = useState(false);
     const[hideRightSide, setHideRightSight] = useState(false);
   
@@ -36,7 +36,6 @@ function Layout( { currID, setCurrID } ) {
       return notes.find((note) => note.id === currNote);
     }
   
-    //need to change so update occurs on button press instead of auto
     const onUpdateNote = (updatedNote) => {
       const updatedNotesArr = notes.map((note)=>{
         if(note.id === currNote) { 
@@ -60,6 +59,20 @@ function Layout( { currID, setCurrID } ) {
       }
     }
 
+    let searchId;
+    if (!currNote) {
+        searchId="none";
+    } else {
+        searchId=currNote;
+        for (let i = 0; i < notes.length; i++) {
+            const key = notes[i].id;
+
+            if (key === searchId){
+                setCurrID(i.toString());
+                break;
+            }
+        }
+    }
 
     return (
         <>
@@ -74,7 +87,7 @@ function Layout( { currID, setCurrID } ) {
 
               <div id="note-container"> 
                   <section id="left-side">
-                      <Sidebar notes={notes} onNewNote={onNewNote} currNote={currNote} setCurrNote={setCurrNote} hideRightSide={hideRightSide} />
+                      <Sidebar notes={notes} onNewNote={onNewNote} currNote={currNote} setCurrNote={setCurrNote} hideRightSide={hideRightSide} setCurrID={setCurrID} currID={currID}/>
                   </section>
                   <section id="right-side">
                       <Outlet context={[getCurrNote, onDeleteNote, onUpdateNote, hideRightSide, notes, setCurrID, currID]}/>
