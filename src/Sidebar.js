@@ -31,7 +31,7 @@ function Sidebar( { notes, onNewNote, currNote, setCurrNote, hideRightSide, note
 
             <div className="sidebar-notes">
                 {notes.map((note, noteID) => (
-                    <Link to={`/notes/${noteID}/edit`} style={{textDecoration: 'none', color:'black'} }>
+                    <Link to={`/notes/${noteID}`} style={{textDecoration: 'none', color:'black'} }>
                         <div className={`sidebar-note ${note.id === currNote ? "active" : ""}`} onClick={() => setCurrNote(noteID)}>
                             <div className="sidebar-note-title">
                                 <strong>{note.title && note.title.substr(0,20) + "..."}</strong>
