@@ -9,9 +9,7 @@ function TextEditor( ) {
 
     const [getCurrNote , onDeleteNote, onUpdateNote, hideRightSide, notes, setCurrID, currID] = useOutletContext();
     const currNote = getCurrNote();
-
     const navigate = useNavigate();
-
 
     const handleChange = (value) => {
         onUpdateNote({

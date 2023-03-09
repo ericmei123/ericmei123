@@ -9,9 +9,7 @@ import { useNavigate } from "react-router-dom";
 function SavedText( ) {
     const [getCurrNote , onDeleteNote, onUpdateNote, hideRightSide, notes, setCurrID, currID] = useOutletContext();
     const currNote = getCurrNote();
-
     const navigate = useNavigate();
-
 
     const options = {
         year: "numeric",
