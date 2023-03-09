@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 
 function SavedText( ) {
-    const [getCurrNote , onDeleteNote, onUpdateNote, hideRightSide, notes, setCurrID, currID] = useOutletContext();
+    const [getCurrNote , onDeleteNote, onUpdateNote, hideRightSide, notes, noteID] = useOutletContext();
     const currNote = getCurrNote();
     const navigate = useNavigate();
 
@@ -38,12 +38,12 @@ function SavedText( ) {
                         <h6 id='datetime-input-read-only'>{formatDate(currNote.date)}</h6>
                     </div>
 
-                    <button id="edit-save-text" onClick={() => navigate(`/notes/${currID}/edit`)}>&emsp;Edit&emsp;</button>
+                    <button id="edit-save-text" onClick={() => navigate(`/notes/${noteID}/edit`)}>&emsp;Edit&emsp;</button>
                     <button id="delete-text" onClick={() => onDeleteNote(currNote.id)}>&emsp;Delete&emsp;</button>
                 </div>
 
                 <div id="bodyText">
-                    <ReactQuill id='body-read-only' readOnly={true} value={currNote.body} modules={{ toolbar: false }}/>
+                    <ReactQuill id='body-read-only' readOnly={true} value={currNote.body} placeholder="Write something here..." modules={{ toolbar: false }}/>
                 </div>
             </section>
         </> 

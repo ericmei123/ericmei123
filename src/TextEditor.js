@@ -6,8 +6,7 @@ import 'react-quill/dist/quill.snow.css';
 import { useNavigate } from "react-router-dom";
 
 function TextEditor( ) {
-
-    const [getCurrNote , onDeleteNote, onUpdateNote, hideRightSide, notes, setCurrID, currID] = useOutletContext();
+    const [getCurrNote , onDeleteNote, onUpdateNote, hideRightSide, notes, noteID] = useOutletContext();
     const currNote = getCurrNote();
     const navigate = useNavigate();
 
@@ -36,12 +35,12 @@ function TextEditor( ) {
                         <input type="datetime-local" id="datetime-input" value={currNote.date} onChange={(event) => onSaveChange("date", event.target.value)} />
                     </div>
                         
-                    <button id="edit-save-text" onClick={() => navigate(`/notes/${currID}`)}>&emsp;Save&emsp;</button>
+                    <button id="edit-save-text" onClick={() => navigate(`/notes/${noteID}`)}>&emsp;Save&emsp;</button>
                     <button id="delete-text" onClick={() => onDeleteNote(currNote.id)}>&emsp;Delete&emsp;</button>
                 </div>
 
                 <div id="bodyText">
-                    <ReactQuill id='body' readOnly={false} value={currNote.body} onChange={handleChange} placeholder="Write your note here..." onBlur={() => onSaveChange("body", currNote.body)} />
+                    <ReactQuill id='body' readOnly={false} value={currNote.body} onChange={handleChange} placeholder="Write something here..." onBlur={() => onSaveChange("body", currNote.body)} />
                 </div>
             </section>
         </> 

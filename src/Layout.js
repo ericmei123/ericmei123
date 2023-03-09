@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { Outlet, useParams } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 import uuid from "react-uuid";
 import Sidebar from "./Sidebar";
 
-
-function Layout( { currID, setCurrID } ) {
-
+function Layout( ) {
+  const navigate = useNavigate();
+  const { noteID } = useParams();
 
   const[notes, setNotes] = useState(() => {
     const yesNote = localStorage.getItem('notes');
@@ -20,18 +20,22 @@ function Layout( { currID, setCurrID } ) {
   });
 
   const[currNote, setCurrNote] = useState(false);
+  const getCurrNote = () => {
+    return notes[currNote]
+  }
+
   const[hideRightSide, setHideRightSight] = useState(false);
 
   const onNewNote = () => {
     const newNote = {
       id: uuid(),
       title: "Untilted",
-      body: "...",
+      body: "",
       date: "",
     };
 
     setNotes([newNote, ...notes]);
-
+    navigate(`/notes/0/edit`)
   };
 
   const onDeleteNote = (idToDel) => {
@@ -41,16 +45,11 @@ function Layout( { currID, setCurrID } ) {
     }
   }
 
-  const getCurrNote = () => {
-    return notes.find((note) => note.id === currNote);
-  }
-
   const onUpdateNote = (updatedNote) => {
     const updatedNotesArr = notes.map((note)=>{
-      if(note.id === currNote) { 
+      if(note.id === notes[currNote].id) { 
         return updatedNote;
       }
-
       return note;
     });
     setNotes(updatedNotesArr);
@@ -68,20 +67,11 @@ function Layout( { currID, setCurrID } ) {
     }
   }
 
-  let searchId;
-  if (!currNote) {
-      searchId="none";
-  } else {
-      searchId=currNote;
-      for (let i = 0; i < notes.length; i++) {
-          const key = notes[i].id;
-
-          if (key === searchId){
-              setCurrID(i.toString());
-              break;
-          }
-      }
-  }
+  useEffect(()=>{
+    if (noteID != null){
+      setCurrNote(noteID)
+    }
+  }, [noteID]);
 
   return (
     <>
@@ -96,10 +86,10 @@ function Layout( { currID, setCurrID } ) {
 
           <div id="note-container"> 
               <section id="left-side">
-                  <Sidebar notes={notes} onNewNote={onNewNote} currNote={currNote} setCurrNote={setCurrNote} hideRightSide={hideRightSide} setCurrID={setCurrID} currID={currID}/>
+                  <Sidebar notes={notes} onNewNote={onNewNote} currNote={currNote} setCurrNote={setCurrNote} hideRightSide={hideRightSide} noteID={noteID}/>
               </section>
               <section id="right-side">
-                  <Outlet context={[getCurrNote, onDeleteNote, onUpdateNote, hideRightSide, notes, setCurrID, currID]}/>
+                  <Outlet context={[getCurrNote, onDeleteNote, onUpdateNote, hideRightSide, notes, noteID]}/>
               </section>
           </div>
       </div>
