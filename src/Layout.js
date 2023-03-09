@@ -9,7 +9,15 @@ import Sidebar from "./Sidebar";
 
 function Layout( { currID, setCurrID } ) {
 
-    const[notes, setNotes] = useState(JSON.parse(localStorage.notes) || []);
+
+    const[notes, setNotes] = useState(() => {
+      const yesNote = localStorage.getItem('notes');
+      if(yesNote){
+        const allNotes = JSON.parse(localStorage.notes)
+        return allNotes;
+      }
+      return [];
+    });
     const[currNote, setCurrNote] = useState(false);
     const[hideRightSide, setHideRightSight] = useState(false);
   
